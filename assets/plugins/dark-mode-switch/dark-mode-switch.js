@@ -26,13 +26,18 @@ window.addEventListener("load", function () {
  * @return {void}
  */
 function initTheme() {
-  var darkThemeSelected =
-    localStorage.getItem("darkSwitch") !== null &&
-    localStorage.getItem("darkSwitch") === "dark";
+  let shouldInit = !localStorage.getItem("init");
+
+  if (shouldInit)
+  {
+    localStorage.setItem("init", "true");
+  }
+
+  var darkThemeSelected = shouldInit || (localStorage.getItem("darkSwitch") !== null && localStorage.getItem("darkSwitch") === "dark");
+  
   darkSwitch.checked = darkThemeSelected;
-  darkThemeSelected
-    ? document.body.setAttribute("data-theme", "dark")
-    : document.body.removeAttribute("data-theme");
+  
+  darkThemeSelected ? document.body.setAttribute("data-theme", "dark") : document.body.removeAttribute("data-theme");
 }
 
 /**
